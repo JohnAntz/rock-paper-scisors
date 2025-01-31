@@ -1,5 +1,10 @@
 const options = ["rock", "paper", "scissors"];
 
+const playerOptions = document.querySelector("#playerOptions");
+const resultDisplay = document.querySelector("#resultDisplay");
+
+const rockButton = document.createElement("button");
+
 let humanScore = 0;
 let computerScore = 0;
 function getComputerChoice() {
