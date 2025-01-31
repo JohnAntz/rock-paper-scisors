@@ -2,6 +2,10 @@ const options = ["rock", "paper", "scissors"];
 
 const playerOptions = document.querySelector("#playerOptions");
 const resultDisplay = document.querySelector("#resultDisplay");
+const scoresDisplay = document.querySelector("#scores");
+
+let humanScore = 0;
+let computerScore = 0;
 
 const rockButton = document.createElement("button");
 rockButton.textContent = "rock";
@@ -18,9 +22,6 @@ scissorsButton.textContent = "scissors";
 scissorsButton.addEventListener("click", () => playGame("scissors"));
 playerOptions.appendChild(scissorsButton);
 
-let humanScore = 0;
-let computerScore = 0;
-
 function getComputerChoice() {
   return options[Math.floor(Math.random() * options.length)];
 }
@@ -29,6 +30,8 @@ function playGame(humanChoice) {
   const computerChoice = getComputerChoice();
   const result = playRound(humanChoice, computerChoice);
   resultDisplay.textContent = result;
+  updateScores();
+  checkWinner();
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -46,3 +49,26 @@ function playRound(humanChoice, computerChoice) {
     return `You win, ${humanChoice} beats ${computerChoice}.`;
   }
 }
+
+function updateScores() {
+  scoresDisplay.textContent = `Human: ${humanScore} - Computer: ${computerScore}`;
+}
+
+function checkWinner() {
+  if (humanScore === 5) {
+    resultDisplay.textContent = "Congratulations! You win the game!";
+    resetGame();
+  } else if (computerScore === 5) {
+    resultDisplay.textContent = "Sorry, the computer wins the game.";
+    resetGame();
+  }
+}
+
+function resetGame() {
+  humanScore = 0;
+  computerScore = 0;
+  updateScores();
+}
+
+// Initialize the scores display
+updateScores();
